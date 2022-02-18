@@ -1,0 +1,108 @@
+{% extends "baseaddmin.html" %}
+
+{% block content %}
+<br>
+<br>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+
+<br>
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+<h>All Doctors:</h>
+{% if request.user.is_authenticated %}
+                <p> {{request.user}}</p>
+                {% endif %}
+
+<table class="table table-hover  table-light table-bordered dataTable no-footer">
+  <thead class="thead-dark" >
+    <tr class="table-primary" >
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Num Tel</th>
+      <th scope="col">Age</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Medcins</th>
+
+      <th scope="col">Supp</th>
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for pt in r %}
+    <tr>
+
+      <th scope="row">{{pt.user.id}}</th>
+      <td>{{pt.user.fn}}</td>
+      <td>{{pt.user.ln}}</td>
+      <td>{{pt.user.phone}}</td>
+      <td>{{pt.user.age}}</td>
+      <td>{{pt.user.address}}</td>
+
+       <td>{% for g in pt.drid.all %}
+     {{g}}.
+      {% endfor %}</td>
+      <td>   <a href="{% url 'deleteass' pt.user.id %}" class="glyphicon glyphicon-trash">  </a></td>
+
+
+
+    </tr>
+   {%endfor%}
+  </tbody>
+
+</table>
+
+<a href="/assreg" class="float">
+<i class="fa fa-plus my-float" >+<br>Ajout</i>
+</a>
+
+{% load static%}
+</div>
+<style>
+
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/1.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+
+
+  {%endblock %}

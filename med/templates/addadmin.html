@@ -1,0 +1,62 @@
+{% extends "baseaddmin.html" %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+ <div class="container">
+{% load static%}
+        <div class="login--wrapper">
+            <br>
+            <br>
+
+
+
+            <form method='post'>
+                <h1>Ajouter un autre admin</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label  class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Add</button>
+                <br>
+                <br>
+
+
+            </form>
+
+        </div>
+
+    </div>
+<style>
+        .login--wrapper {
+            display: flex;
+            height: 80vh;
+        }
+
+        .form {
+            width: 400px;
+        }
+
+body {
+
+  background-size:80% 80%;
+  background-repeat:no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  background: url('{% static "images/d.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+
+    </style>
+   {%endblock %}

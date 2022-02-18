@@ -1,0 +1,42 @@
+
+{% extends 'baseaddmin.html' %}
+
+{% block title %}
+Event
+{% endblock %}
+
+{% block content %}
+{% load static%}
+<div class="clearfix">
+    <br>
+    <br>
+    <br>
+    <br>
+  <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+  </table>
+</form>
+<style>
+
+body {
+
+  background-size:80% 80%;
+  background-repeat:no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  background: url('{% static "images/d.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+{% endblock %}

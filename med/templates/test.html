@@ -1,0 +1,52 @@
+
+{% extends request.user.is_doctor|yesno:'basedoctor.html,baseaddmin.html' %}
+{% load static %}
+{% block content %}
+
+ <br>
+ <br>
+ <br>
+ <br>
+<h1>  Paymment et cas de patient {{pp}}</h1>
+<br>
+
+<div class="row">
+
+
+	<div class="col-md-6" >
+		<div class="card card-body" id="t">
+
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{form}}
+				<br>
+
+				<input type="submit" name="Submit">
+             <a class="btn btn-danger" href="{% url 'patient' %}">Cancel</a>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<style>
+body {
+  overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+
+  background: url('{% static "images/9.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }</style>
+
+{% endblock %}
+

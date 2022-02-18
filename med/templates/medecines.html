@@ -1,0 +1,341 @@
+{% extends request.user.is_doctor|yesno:'basedoctor.html,baseaddmin.html' %}
+{% block content %}
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
+
+{% if request.user.is_authenticated %}
+
+                {% endif %}
+
+
+
+<table  class="table table-hover  table-warning table-bordered dataTable no-footer"   id="infoTable " style="width:300px; margin-left:-50px;">
+
+  <thead class="thead-dark" style="background-color:#0C9">
+   <caption style="caption-side:top; color:black;">Medicaments (Entrant)</caption>
+    <tr class="table-primary">
+
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Type</th>
+      <th scope="col">Date</th>
+      <th scope="col">Total</th>
+
+      <th scope="col" style="font-size:10px;">Supp</th>
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for pt in m %}
+    <tr>
+
+
+      <td>{{pt.name}}</td>
+      <td>{{pt.quantity}}</td>
+      <td>{{pt.prix}}</td>
+      <td>{{pt.type}}</td>
+      <td>{{pt.dt}}</td>
+      <td>{{pt.total}}</td>
+
+
+
+      <td>   <a href="#popup1"  class="glyphicon glyphicon-trash" style="color:red;  transition: all 0.3s ease-out;" >  </a></td>
+
+</td>
+    </tr>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<div class="card card-body" >
+
+
+			<form action="{% url 'deleteMed' pt.id  %}" method="POST">
+
+
+
+				{% csrf_token %}
+				<a class="btn btn-warning" href="#">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+
+  {%endfor%}
+   <tr>
+      <th scope="row">Total</th>
+      <td colspan="6">{{mt}}</td>
+
+    </tr>
+     </tbody>
+</table>
+
+
+
+<table  class="table table-hover  table-danger table-bordered dataTable no-footer"   id="infoTable" style="width:300px;">
+
+    <thead class="thead-dark">
+    <caption style="caption-side:top; color: black;">Hors medicaments (Entrant)</caption>
+    <tr class="table-primary">
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Type</th>
+      <th scope="col">Date</th>
+      <th scope="col">total</th>
+
+      <th scope="col" style="font-size:10px;">Supp</th>
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for s in f %}
+    <tr>
+
+
+      <td>{{s.name}}</td>
+      <td >{{s.quantity}}</td>
+      <td >{{s.prix}}</td>
+      <td  >{{s.type}}</td>
+      <td  >{{s.dt}}</td>
+
+      <td  >{{s.total}}</td>
+
+      <td>   <a  href="#popup2" class="glyphicon glyphicon-trash" style="color:red" >  </a></td>
+
+</td>
+    </tr>
+
+  </tbody>
+<div id="popup2" class="overlay">
+	<div class="popup">
+		<div class="card card-body" >
+
+
+			<form action="{% url 'deleteFood' s.id  %}" method="POST">
+
+
+
+				{% csrf_token %}
+				<a class="btn btn-warning" href="#">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+  {%endfor%}
+     <tr>
+      <th scope="row">Total</th>
+      <td colspan="6">{{ft}}</td>
+
+    </tr>
+</table>
+
+<table  class="table table-hover  table-danger table-bordered dataTable no-footer"  style="width:300px;">
+
+    <thead class="thead-dark">
+    <caption style="caption-side:top; color: black;">Consommées (Sortant)</caption>
+    <tr class="table-primary">
+      <th scope="col">Nom</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Type</th>
+      <th scope="col">Date</th>
+      <th scope="col">total</th>
+
+      <th scope="col" style="font-size:10px;">Supp</th>
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for s in uu %}
+    <tr>
+
+
+      <td>{{s.name}}</td>
+      <td >{{s.quantity}}</td>
+      <td >{{s.prix}}</td>
+      <td  >{{s.type}}</td>
+      <td  >{{s.dt}}</td>
+      <td  >{{s.total}}</td>
+
+      <td>   <a  href="#popup3" class="glyphicon glyphicon-trash" style="color:red" >  </a></td>
+
+</td>
+    </tr>
+
+  </tbody>
+<div id="popup3" class="overlay">
+	<div class="popup">
+		<div class="card card-body" >
+
+
+			<form action="{% url 'deleteused' s.id  %}" method="POST">
+
+
+
+				{% csrf_token %}
+				<a class="btn btn-warning" href="#">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+  {%endfor%}
+     <tr>
+      <th scope="row">Total</th>
+      <td colspan="6">{{ss}}</td>
+
+    </tr>
+</table>
+
+<a href="/addmed" class="float" style="text-decoration: none; " >
+<i class="fa fa-plus my-float" >Ajout Med</i>
+</a>
+<a href="/addfood" class="float" style="text-decoration: none; ">
+<i class="fa fa-plus my-float" >Ajout hors med</i>
+</a>
+
+<a href="/addused" class="float" style="text-decoration: none; ">
+<i class="fa fa-plus my-float" >Ajout consum</i>
+</a>
+
+{% load static%}
+
+</div>
+<style>
+
+.table{
+
+   display: inline-block;
+   width:400px;
+    margin: 50px;
+}
+.float{
+    display: inline-block;
+    margin: 150px;
+
+	width:60px;
+	height:60px;
+	bottom:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+background-color: rgba(0,0,0,0.5);
+  background: url('{% static "images/17.png" %}') no-repeat center center fixed ;
+
+
+
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+
+
+</style>
+
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#infoTable').DataTable();
+function doMath() {
+    var numOne = document.getElementById('num1').value;
+    var numTwo = document.getElementById('num2').value;
+    var theProduct = parseInt(numOne) * parseInt(numTwo);
+    document.write(theProduct);
+}
+</script>
+
+{% endblock extrascripts %}
+  {%endblock %}

@@ -1,0 +1,119 @@
+
+{% extends request.user.is_admin|yesno:'baseaddmin.html,baserec.html' %}
+
+
+    {% block content %}
+
+{% load widget_tweaks %}
+{% load static%}
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div  style="background-image: url('images/bed.jpeg'); " >
+<img src="{% static 'images/1er.png' %}" alt="Trulli" width="800" height="537" style="position: fixed; margin-left:155px; margin-top:-27px;">
+    {% if request.user.is_authenticated %}
+                <p>  {{usr}}</p>
+                {% endif %}
+ {% csrf_token %}
+     {% for pt in p %}
+        {% if pt.bed == 1  %}
+<a  href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl; margin-left:203px; margin-top:56px;  height: 120px; width: 40px; position: fixed;" >1 {{pt}}</a>
+       {% endif %}
+       {% if pt.bed == 2%}
+<a  href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl; margin-left:264px; margin-top:56px;  height: 120px; width: 40px; position: fixed;" > 2 {{pt}}</a>
+   {% endif %}
+     {% if pt.bed == 3  %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}" style="width:30px; padding:center; writing-mode: vertical-rl; margin-left:330px; margin-top:56px;  height: 120px; width: 40px; position: fixed;" > 3{{pt}}</a>
+  {% endif %}
+      {% if pt.bed == 4  %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl;  margin-left:204px; margin-top:221px;  height: 120px; width: 40px; position: fixed;" > 4 {{pt}}</a>
+     {% endif %}
+    {% if pt.bed == 5  %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl;  margin-left:265px; margin-top:221px;   height: 120px; width: 40px; position: fixed;" > 5 {{pt}}</a>
+    {% endif %}
+    {% if pt.bed == 6  %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl; margin-left:331px;margin-top:221px;   height: 120px; width: 40px; position: fixed;" > 6 {{pt}}</a>
+    {% endif %}
+      {% if pt.bed == 7  %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl; margin-left:210px; margin-top:390px;height: 113px; width: 40px; position: fixed;" >7 {{pt}}</a>
+   {% endif %}
+     {% if pt.bed == 8 %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success" style="width:30px; padding:center; writing-mode: vertical-rl;margin-left:268px; margin-top:390px; height: 113px; width: 40px;" > 8 {{pt}}</a>
+       {% endif %}
+      {% if pt.bed == 9 %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success v" style=" padding:center;  margin-top:30px; margin-left:484px; width:100px; height:38px; width: 128px; position: fixed;" > 9 {{pt}}</a>
+
+{% endif %}
+
+       {% if pt.bed == 10 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success v" style=" padding:center;  margin-top:110px; margin-left:484px; width:100px; height:38px; width: 128px; position: fixed;" > 10 {{pt}}
+
+{% endif %}
+   {% if pt.bed == 11 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success v" style=" padding:0px;  margin-top:339px; margin-left:591px; height:38px; width: 128px; position: fixed;" > 11 {{pt}}</a>
+
+{% endif %}
+
+       {% if pt.bed == 12 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success v" style=" padding:0px;  margin-top:419px;margin-left:591px; height:38px; width: 128px; position: fixed;" > 12 {{pt}}</a>
+
+{% endif %}
+ {% if pt.bed == 13 %}
+    <a  src="{% static 'images/1er.png' %}" class="btn btn-success v" style=" padding:0px;  margin-top:324px; margin-left:802px; height:38px; width: 128px; position: fixed;" > 13 {{pt}}</a>
+
+{% endif %}
+
+       {% if pt.bed == 14 %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success v" style=" padding:0px;  margin-top:382px;margin-left:804px;  height:38px; width: 128px; position: fixed;" > 14 {{pt}}</a>
+
+{% endif %}
+
+   {% if pt.bed == 15 %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}" class="btn btn-success v" style=" padding:0px;  margin-top:438px; margin-left:802px;  height:38px; width: 128px;" > 15 {{pt}}</a>
+
+{% endif %}
+
+
+ {% endfor %}
+</div>
+
+
+
+
+<a href="/apo" class="float">
+<i class="fa fa-plus my-float" >Ajout</i>
+</a>
+
+
+
+<style>
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: hidden;
+   }
+</style>
+
+
+
+  {%endblock %}

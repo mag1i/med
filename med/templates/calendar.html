@@ -1,0 +1,134 @@
+
+
+
+<!doctype html>
+{% extends "baseaddmin.html" %}
+{% block content %}
+{% load static%}
+
+
+<div class="clearfix " style=" margin-left:300px;">
+	<a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+
+</div>
+<div style="width:150px; height:100px; margin-left:200px;" >{{ calendar }}</div>
+
+
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+{% if request.user.is_authenticated %}
+
+                {% endif %}
+
+<table class="table table-hover  table-light table-bordered dataTable no-footer n" style="margin-top:20px; width: 1000px;">
+  <thead class="thead-dark">
+    <tr class="table-success">
+      <th scope="col">ID</th>
+      <th scope="col">Cas</th>
+      <th scope="col">Date de rendezvous et temps </th>
+      <th scope="col">Paid</th>
+      <th scope="col">Patient</th>
+      <th scope="col">Num Patient</th>
+      <th scope="col">Medcin</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for pt in d %}
+    <tr>
+
+      <th scope="row">{{pt.id}}</th>
+      <td>{{pt.title}}</td>
+      <td>{{pt.rdvtime}}</td>
+      <td>{{pt.paid}}</td>
+      <td>{{pt.pp}}</td>
+      <td>{{pt.pp.phonep}}</td>
+      <td>{{pt.pp.drid}}</td>
+
+
+
+
+
+    </tr>
+   {%endfor%}
+  </tbody>
+
+</table>
+
+<div class="card card-success n" style="width: 150px; margin-left:200px;">
+  <div class="card-header ">
+    Total:
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{total}}</li>
+
+  </ul>
+</div>
+{% load static%}
+</div>
+
+<style>
+
+.calendar {
+  width: 98%;
+  margin: 0px;
+  font-size: 13px;
+}
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: auto;
+  padding: 0px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+a {
+  color: #17a2b8;
+}
+
+
+.btn {
+  outline: none;
+  color: black;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin: 20px;
+}
+body{
+background: url('{% static "images/nn.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+
+</style>
+  {%endblock %}

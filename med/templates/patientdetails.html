@@ -1,0 +1,56 @@
+
+{% extends request.user.is_admin|yesno:'baseaddmin.html,baserec.html' %}
+
+
+    {% block content %}
+
+{% load widget_tweaks %}
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% load static%}
+<div  class="vv">
+<img src="{% static 'images/bed.jpeg' %}" width="700" height="533" style="margin-left:550px; margin-top:50px;" ></div>
+<div  class="card" style="font-size: 25px; width: 500px;margin-top:-500px; ">
+    <div class="card-header " style="width: 500px; ">  Les details de patient dans le lit {{p.bed}}</div>
+    <br>
+    <br>
+      <div class="card-body" style="padding: 20px;" >
+Nom: {{p.lastname}}
+<br>
+<br>
+Prenom: {{p.firstname}}
+<br>
+<br>
+Age: {{p.age_patient}}
+<br>
+<br>
+Adresse: {{p.addressp}}
+<br>
+<br>
+Tel: {{p.phonep}}
+<br>
+<br>
+Nature de cherugie: {{p.nature}}
+<br>
+<br>
+Medcin: {{p.drid}}
+<br>
+<br>
+Prix: {{p.prix}}
+</div>
+    <a href="{% url 'rb' p.auto_increment_id %}" type="button" class="btn btn-outline-danger">retirer le patient du lit </a>
+</div>
+
+<style>
+.vv{
+display: inline;
+}
+
+
+
+</style>
+  {%endblock %}

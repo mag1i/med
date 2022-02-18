@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static%}
+   <div class="jumbotron">
+       <br>
+       <br>
+       <br>
+        <a href="/loginmed"><img src="../static/images/bb.png" id="pc" style="margin-top:150px; margin-left: 180px;"></a>
+        <a href="/loginrec"><img src="../static/images/cc.png" id="pc" style="margin-top:150px;"></a>
+       <a href="/loginass"><img src="../static/images/aa.png" id="pc" style="margin-top:150px;"></a>
+       <a href="/login"><img src="../static/images/dd.png" id="pc" style="margin-top:150px;"></a>
+       <a href="{% url 'loginmed' %}" class="btn btn-dark " id="b" style="margin-left: 170px;">login comme un medcin </a>
+
+       <a href="{% url 'loginrec' %}" class="btn btn-dark " id="b">login comme un Rciptionist</a>
+       <a href="{% url 'loginass' %}" class="btn btn-dark " id="b">login comme un Assistant</a>
+       <a href="{% url 'login' %}" class="btn btn-dark " id="b">login comme un Admin</a>
+
+ </div>
+<style>
+        .login--wrapper {
+            display: flex;
+            height: 80vh;
+        }
+
+        .form {
+            width: 100px;
+        }
+        #b{
+       margin-right: 50px;
+       text-align:center;
+       width:150px;
+
+
+
+        padding: 20px;
+        }
+    #pc{
+    margin-top:50px;
+    width: 150px;
+    height: 220px;
+    display: inline;
+    margin: 20px;
+    }
+body {
+
+  background-repeat:no-repeat;
+
+
+ background: url('{% static "images/fc.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+
+ }
+
+
+    </style>
+        {%endblock %}

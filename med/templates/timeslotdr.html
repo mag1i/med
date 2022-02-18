@@ -1,0 +1,181 @@
+{% extends request.user.is_doctor|yesno:'basedoctor.html,baseaddmin.html' %}
+{% load static%}
+{% block content %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--
+
+   <form  action="" method="POST" style="width: 600px;">
+       <br>
+       <br>
+       <br>
+       <h1>{{v}}</h1>
+  {% csrf_token %}
+  {{ formi.as_p }}
+
+ <button type="submit" class="btn btn-primary"  >  Ajouter Patient</button>
+
+
+</form>
+
+
+     -->
+<h1>{{v}}</h1>
+<a  href="/register" class="btn btn-primary"  >  Ajouter Patient</a>
+ <a  href="/apo" class="btn btn-primary"  >  Ajouter Patient Op</a>
+<br>
+<br>
+<div style="background-color: white; width:200px;    overflow-x: scroll;  scroll-behavior: auto; overflow-wrap: break-word; position: relative; cursor: pointer;  white-space: nowrap;
+  ">
+
+<table  class="table table-light table-hover  no-footer"   >
+  <thead class="thead-dark">
+    <tr class="table-success">
+      <th scope="col" style="height: 10px;">Time</th>
+            </tr>
+  </thead>
+  <tbody>
+
+     {% for pt in ts %}
+
+
+     <tr>
+
+      <th scope="row" style="height:20px;">{{pt.h}}:{{pt.m}}</th>
+
+
+
+    </tr>
+ {%endfor%}
+  </tbody>
+
+</table>
+
+{% csrf_token %}
+
+<table  class="table table-light table-hover  table-bordered  "  >
+  <thead class="thead-dark"  style="min-width:1px;">
+    <tr class="table-success"  style="min-width:1px;">
+
+      <th scope="col" style=" width: 0px  !important;  "></th>
+
+
+
+      <th scope="col"  style="height: 39px; min-width:110px;"  >{{d}}</th>
+
+    </tr>
+  </thead>
+  <tbody  style="min-width:1px; ">
+
+
+
+
+     {% for pt in ts %}
+
+
+
+
+     <tr style="min-width:0px;  " >
+
+
+      <th scope="row" style="visibility:collapse; width:0px  !important;  font-size: 0px; height: 36.9px; border-right-style:hidden; ">{{pt.h}}{{pt.m}}</th>
+
+
+
+
+
+
+
+              {% for dh in dv %}
+
+
+
+
+                {% if pt.h == dh.hr %}
+                    {% if  pt.m == dh.mn %}
+
+
+
+
+
+
+                      {% if  dh.pp.currentstate == b %}
+                              <td class="bg-info" style="   height: 37.1px;  padding:0px; text-align: center; padding-top: 4px; margin-left: -10px; ">
+                                   {{dh.pp}}{{es}}{{es}}
+
+                                  <a href="{% url 'update' dh.pp.auto_increment_id %}" class="fa fa-money" style="font-size:20px; color:green; text-size:30px;">  </a>
+
+                                   </td>
+                     {% elif dh.pp.currentstate == a %}
+                     <td class="bg-warning" style="  height: 37.1px;  padding:0px; text-align: center; padding-top: 4px; margin-left: -10px;" >
+                         {{dh.pp}}{{es}}{{es}}{% if dh.pp.isin == True %}<a href="#"  type="submit" class="glyphicon glyphicon-open" style="color:green" > </a>{% endif %}
+
+                                     <a href="{% url 'update' dh.pp.auto_increment_id %}" class="fa fa-money" style="font-size:20px; color:green">  </a>
+
+                                   </td>
+                      {% elif dh.pp.currentstate == c %}
+                         <td class="bg-success" style=" height: 37.1px;  padding:0px; text-align: center;  padding-top: 4px; margin-left: -10px;" >
+                                      {{dh.pp}}
+
+              <a href="{% url 'update' dh.pp.auto_increment_id %}" class="fa fa-money" style="font-size:20px; color:green">  </a>
+                                    </td>
+                      {% elif dh.pp.currentstate == t %}
+                     <td class="bg-danger" scope="row" style=" height: 37.1px;  padding:0px; text-align: center; padding-top: 4px; margin-left: -10px;">
+                                 {{es}} {{dh.pp}}
+
+
+              <a href="{% url 'update' dh.pp.auto_increment_id %}" class="fa fa-money" style="font-size:20px; color:green">  </a> </td>
+         {% endif %}
+
+
+
+
+
+
+ {% endif %}
+
+
+                       {% endif %}
+
+         {%endfor%}
+         {%endfor%}
+
+    </tr>
+  </tbody>
+</table></div>
+<br>
+<br>
+<br>
+<style>
+table{
+display: initial;
+min-width: 0px;
+overflow-x: scroll;
+height: 100%;
+margin-right: -5px;
+ scroll-behavior: auto; overflow-wrap: break-word;
+  }
+
+    body {
+    overflow: scroll;
+    scroll-behavior: auto; overflow-wrap: break-word;
+
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: scroll;
+  overflow-y: scroll;
+
+  background: url('{% static "images/a.jpg" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+     {% endblock %}

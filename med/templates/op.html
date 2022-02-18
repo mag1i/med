@@ -1,0 +1,85 @@
+
+{% extends request.user.is_admin|yesno:'baseaddmin.html,baserec.html' %}
+
+
+    {% block content %}
+
+{% load static%}
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div  style="background-image: url('images/bed.jpeg');" >
+<img src="{% static 'images/op.png' %}" alt="Trulli" width="800" height="537" style="position: fixed; margin-left:155px; margin-top:-27px; ">
+    {% if request.user.is_authenticated %}
+                <p>  {{usr}}</p>
+                {% endif %}
+ {% csrf_token %}
+     {% for pt in p %}
+
+      {% if pt.bed == 24 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success v" style=" padding:center;  margin-top:60px; margin-left:198px; width:100px; height:43px; width: 155px; position: fixed;" > 24 {{pt}}</a>
+
+{% endif %}
+
+  {% if pt.bed == 25 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success v" style=" padding:center;  margin-top:170px; margin-left:198px; width:100px; height:43px; width: 155px; position: fixed;" > 25 {{pt}}</a>
+
+{% endif %}
+      {% if pt.bed == 26 %}
+    <a  href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success v" style=" padding:center;  margin-top:60px; margin-left:756px; width:100px; height:43px; width: 155px; position: fixed;" > 26 {{pt}}</a>
+
+{% endif %}
+
+  {% if pt.bed == 27 %}
+    <a href="{% url 'patdet' pt.auto_increment_id %}"  class="btn btn-success v" style=" padding:center;  margin-top:170px;  margin-left:756px; width:100px; height:43px; width: 155px; position: fixed;" > 27 {{pt}}</a>
+
+{% endif %}
+ {% endfor %}
+
+
+
+
+
+<a href="/apo" class="float">
+<i class="fa fa-plus my-float" >Ajout</i>
+</a>
+
+
+</div>
+<style>
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: hidden;
+    size: sticky;
+
+
+
+
+ }
+
+</style>
+
+
+
+  {%endblock %}

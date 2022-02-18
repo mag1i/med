@@ -1,0 +1,109 @@
+{% extends "baseaddmin.html" %}
+
+{% block content %}
+<br>
+<br>
+
+<br>
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+<h2 style="margin-left:200px;">Monthly</h2>
+{% if request.user.is_authenticated %}
+
+                {% endif %}
+
+<table class="table table-hover  table-light table-bordered dataTable no-footer n" style=" width:600px; ">
+  <thead class="thead-dark">
+    <tr class="table-success">
+      <th scope="col">ID</th>
+      <th scope="col">Cas</th>
+      <th scope="col">Date de rendezvous.... </th>
+      <th scope="col">Paid</th>
+      <th scope="col">Patient</th>
+      <th scope="col">Num Patient</th>
+      <th scope="col">Medcin</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for pt in d %}
+    <tr>
+
+      <th scope="row">{{pt.id}}</th>
+      <td>{{pt.title}}</td>
+      <td>{{pt.rdvtime}}</td>
+      <td>{{pt.paid}}</td>
+      <td>{{pt.pp}}</td>
+      <td>{{pt.pp.phonep}}</td>
+      <td>{{pt.pp.drid}}</td>
+
+
+
+
+
+    </tr>
+   {%endfor%}
+  </tbody>
+
+</table>
+
+<div class="card card-success n" style="width: 150px;">
+  <div class="card-header ">
+    Total:
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{total}}</li>
+
+  </ul>
+</div>
+{% load static%}
+</div>
+<style>
+
+.n{
+display: inline-block;
+margin:20px;
+}
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/nn.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+
+
+  {%endblock %}

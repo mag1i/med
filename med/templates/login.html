@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+ <div class="container">
+{% load static%}
+        <div class="login--wrapper">
+            <br>
+            <br>
+
+            {% if page == 'login' %}
+
+            <form method='post' class="form">
+                {% csrf_token %}
+                  <br>
+            <br>
+                <h1>Login</h1>
+                <h4>Login comme un admin</h4>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                </div>
+
+                <button type="submit" class="btn btn-success">Login</button>
+                <br>
+                <br>
+
+
+
+            </form>
+            {% else %}
+            <form method='post'>
+                <h1>Ajouter un autre addmin</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Register</button>
+                <br>
+                <br>
+
+
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+<style>
+        .login--wrapper {
+            display: flex;
+            height: 80vh;
+        }
+
+        .form {
+            width: 400px;
+        }
+
+body {
+
+  background-size:80% 80%;
+  background-repeat:no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  background: url('{% static "images/d.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+
+    </style>
+   {%endblock %}

@@ -1,0 +1,160 @@
+{% extends request.user.is_admin|yesno:'baseaddmin.html,baserec.html' %}
+{% block content %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+<h> Patients Opere:</h>
+
+{% if request.user.is_authenticated %}
+                <p> {{request.user}}</p>
+                {% endif %}
+
+<table  class="table table-hover  table-light table-bordered  dataTable no-footer"   id="infoTable ">
+  <thead class="thead-dark">
+    <tr class="table-active">
+      <th scope="col">ID</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Oriente</th>
+      <th scope="col">Nature de chirugie</th>
+      <th scope="col">Num Tel</th>
+      <th scope="col">Age</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Medcin</th>
+      <th scope="col">cas</th>
+         <th scope="col">prix prop</th>
+      <th scope="col">Paye</th>
+      <th scope="col">Observation</th>
+         {% if request.user.is_admin %}
+      <th scope="col" style="font-size:10px;">Supp</th>
+      <th scope="col" style="font-size:10px;">Mod</th>
+         {% endif %}
+
+      <th scope="col" style="font-size:10px;">In</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% csrf_token %}
+     {% for pt in p %}
+        {% if a == pt.currentstate  %}
+
+             <tr class="table-warning">
+        {% elif b == pt.currentstate %}
+                 <tr class="table-success">
+        {% elif c == pt.currentstate %}
+                 <tr class="table-info">
+        {% elif d == pt.currentstate %}
+                 <tr class="table-danger">
+       {% else %}
+                  <tr >
+
+       {% endif %}
+
+      <th scope="row">{{pt.auto_increment_id}}</th>
+      <td>{{pt.firstname}}</td>
+      <td>{{pt.lastname}}</td>
+      <td>{{pt.orient}}</td>
+      <td>{{ pt.nature}}</td>
+      <td>{{pt.phonep}}</td>
+      <td>{{pt.age_patient}}</td>
+      <td>{{pt.addressp}}</td>
+      <td>{{pt.drid}}</td>
+
+        {% if pt.currentstate == a %}
+         {% if pt.isin == True %}
+
+       <td>{{pt.currentstate}} <a href="#"  type="submit" class="glyphicon glyphicon-open" style="color:green" >  </a></td>
+       {% else %}
+              <td>{{pt.currentstate}}</td>
+      {% endif %}
+       {% else %}
+              <td>{{pt.currentstate}}</td>
+       {% endif %}
+
+
+
+      <!-- <td>   <a href="{% url 'getrdv' pt.auto_increment_id %}" class="btn btn-light btn-block btn-sm m-1"> rdv de {{pt}} </a>-->
+      <td>   {{ pt.prix}}</td>
+
+       <td>   <a href="#" class="fa fa-money" style="font-size:20px; color:green"> {{ pt.prixprop}} </a></td>
+       <td class="editable">   </td>
+        {% if request.user.is_admin  %}
+         <td>   <a href="{% url 'delete' pt.auto_increment_id %}" class="glyphicon glyphicon-trash" style="color:red" >  </a></td>
+         <td>   <a href="{% url 'update' pt.auto_increment_id %}" class="glyphicon glyphicon-edit" style="color:green" >  </a></td>
+       {% endif %}
+
+
+
+
+
+           {% if pt.currentstate == a %}
+      <td>   <a href="{% url 'ist' pt.auto_increment_id %}" class="glyphicon glyphicon-open" style="color:green" >  </a></td>
+        {% endif %}
+
+    </tr>
+   {%endfor%}
+  </tbody>
+
+</table>
+<a href="/register" class="float">
+<i class="fa fa-plus my-float" >Ajout</i>
+</a>
+
+{% load static%}
+
+</div>
+<style>
+
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/9.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+</style>
+
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#infoTable').DataTable();</script>
+
+{% endblock extrascripts %}
+  {%endblock %}

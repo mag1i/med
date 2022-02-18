@@ -1,0 +1,51 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<br>
+  <br>
+            <br>
+            <br>
+<div class="row">
+     <br>
+            <br>
+            <br>
+
+
+	<div class="col-md-6">
+		<h1>Supprimer le medecin {{item}}</h1>
+		<div class="card card-body">
+
+			<p>Are you sure you want to delete the doctor {{item}}?</p>
+
+			<form action="{% url 'deletedr' item.user_id  %}" method="POST">
+				
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'Drs' %}">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+<style>
+body {
+
+  background-size:80% 80%;
+  background-repeat:no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  background: url('{% static "images/22.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }</style>
+
+{% endblock %}
+

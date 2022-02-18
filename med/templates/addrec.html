@@ -1,0 +1,63 @@
+{% extends "baseaddmin.html" %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+{% load static%}
+    <section>
+        <div class="container">
+          <div class="row">
+              <br>
+              <br>
+              <br>
+            <div class="col-md-6 mx-auto">
+              <div class="card">
+                   <br>
+              <br>
+              <br>
+                <div class="card-header text-black">
+                     <br>
+              <br>
+              <br>
+
+                  <h2>Ajouter Receptionist</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'rr' %}" method="POST" novalidate>
+                      {% csrf_token %}
+                         {% for field in form.visible_fields %}
+                           <div class="form-group">
+                               {{ field.label_tag }}
+                                  {% render_field field class="form-control" %}
+                                    {% for error in field.errors %}
+                                      <span style="color:red">{{ error }}</span>
+                                    {% endfor %}
+                         {% endfor %}
+                                <br>
+
+                             <input type="submit" value="Register" class="btn btn-block btn-primary">
+                           </div>
+                    </form>
+                 </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+<style>
+body {
+
+  background-size:80% 80%;
+  background-repeat:no-repeat;
+
+
+  background: url('{% static "images/1.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+    </style>
+   {%endblock %}

@@ -1,0 +1,109 @@
+{% extends request.user.is_doctor|yesno:'basedoctor.html,baseaddmin.html' %}
+
+{% block content %}
+<br>
+
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+{% if request.user.is_authenticated %}
+
+                {% endif %}
+  <h2 style="margin-left:170px; ">Month income</h2>
+
+  <br>
+<table class="table table-hover  table-light  dataTable no-footer n" style="width:800px;">
+  <thead class="thead-dark">
+    <tr class="table-success">
+       <th scope="col">Medcin</th>
+
+      <th scope="col">Cas</th>
+      <th scope="col">Date de rendezvous </th>
+
+      <th scope="col">Paid</th>
+      <th scope="col">Patient</th>
+      <th scope="col">Num Patient</th>
+      <th scope="col">datereg</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+     {% for pt in dd %}
+    <tr>
+
+      <th scope="row">{{pt.pp.drid}}</th>
+      <td>{{pt.title}}</td>
+      <td>{{pt.rdvtime}}</td>
+
+      <td>{{pt.paid}}</td>
+      <td>{{pt.pp}}</td>
+      <td>{{pt.pp.phonep}}</td>
+      <td>{{pt.datereg}}</td>
+
+
+
+
+
+
+    </tr>
+   {%endfor%}
+  </tbody>
+
+</table>
+
+<div class="card card-success n" style=" width: 150px; color:#ffff" >
+  <div class="card-header bg-success" >
+    Total:
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{total}}</li>
+
+  </ul>
+</div>
+{% load static%}
+</div>
+<style>
+.n{
+display: inline-block;
+float:left}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/mon.png" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+
+
+  {%endblock %}

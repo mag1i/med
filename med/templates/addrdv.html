@@ -1,0 +1,41 @@
+{% extends "baseaddmin.html" %}
+{% load static%}
+{% block content %}
+<br>
+<br>
+{% if user.is_authenticated %}
+   <form  action="" method="POST" style="width: 600px;">
+       <br>
+       <br>
+       <br>
+       <h1>Ajouter des rendes-vous</h1>
+  {% csrf_token %}
+  {{ formi.as_p }}
+
+ <button type="submit" class="btn btn-primary"  >  Add Now</button>
+
+
+</form>
+{% endif %}
+<style>
+
+    body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/a.jpg" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+</style>
+     {%endblock %}

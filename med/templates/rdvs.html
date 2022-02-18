@@ -1,0 +1,310 @@
+{% extends "baseaddmin.html" %}
+{% block content %}
+<br>
+<br>
+
+<br>
+<div data-bs-spy="scroll" class="scrollspy-example" style="scroll-behavior: auto;">
+<h2> Patient: {{ppp}}</h2>
+{% if request.user.is_authenticated %}
+
+                {% endif %}
+
+<table  class="table table-hover  table-light table-bordered dataTable no-footer"   id="infoTable " style="margin-left:-80px; width:600px; ">
+  <thead class="thead-dark">
+    <tr class="table-primary">
+      <th scope="col">Cas</th>
+      <th scope="col">Date</th>
+      <th scope="col">Desc</th>
+      <th scope="col">Paid</th>
+      <th scope="col">update</th>
+      <th scope="col">Supprimer</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   {% csrf_token %}
+
+     {% for rdvss in rdv %}
+
+
+     <tr>
+
+
+      <td>{{rdvss.title}}</td>
+         <td>{{rdvss.rdvtime}}</td>
+      <td>{{rdvss.description}}</td>
+
+       <td class="editable" contenteditable='true' type="submit"  name="po" >{{rdvss.paid}}</td>
+          <td>
+
+
+      <div >
+	<a class="button" href="{% url 'updaterdv' rdvss.id  %}" >Update</a>
+</div></td>
+          <td>
+
+
+      <div >
+	<a class="button" href="#popup1">Supprimer</a>
+</div></td>
+
+
+
+</td>
+    </tr>
+
+  </tbody>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<div class="col-md-6" style="width:350px;">
+		<div class="card card-body" >
+             <p>Êtes-vous sûr de vouloir supprimer ce rendez-vous? </p>
+
+
+
+			<form action="{% url 'deleteRdv' rdvss.id  %}" method="POST">
+
+
+
+				{% csrf_token %}
+				<a class="btn btn-warning" href="#">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div id="popup2" class="overlay" href="{% url 'updaterdv' rdvss.id  %}" >
+	<div class="popup">
+		<div class="col-md-6" style="width:350px;">
+		<div class="card card-body" >
+             <p>Êtes-vous sûr de vouloir mise a jour ce rendez-vous? </p>
+
+
+
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{f.as_p}}
+
+
+
+				<input type="submit" name="Submit">
+             <a class="btn btn-danger" href="#">Cancel</a>
+
+
+</form>
+
+		</div>
+	</div>
+	</div>
+</div>
+
+    {%endfor%}
+</table>
+
+
+<a href="{% url 'addrdv' ppp.auto_increment_id  %}" class="float">
+<i class="fa fa-plus my-float" >+<br>Ajout</i>
+</a>
+
+{% load static%}
+
+</div>
+<style>
+
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text: bold;
+	text-decoration: none;
+	text-size:100px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+body {
+    overflow: scroll;
+    scroll-behavior: auto;
+    overflow-wrap: break-word;
+
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background: url('{% static "images/a.jpg" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+
+ }
+
+h1 {
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #06D85F;
+  margin: 80px 0;
+}
+
+
+.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.button:hover {
+  background: #06D85F;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+
+
+</style>
+
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#infoTable').DataTable();</script>
+
+{% endblock extrascripts %}
+
+
+{% block custom_js %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on("dblclick",".editable",function(){
+                var value=$(this).text();
+                var data_type=$(this).data("type");
+                var input_type="text";
+                if(data_type=="created_at")
+                {
+                    input_type="datetime-local";
+                }
+                var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
+                $(this).html(input);
+                $(this).removeClass("editable")
+            });
+
+            $(document).on("blur",".input-data",function(){
+                var value=$(this).val();
+                var td=$(this).parent("td");
+                $(this).remove();
+                td.html(value);
+                td.addClass("editable");
+                var type=td.data("type");
+                sendToServer(td.data("id"),value,type);
+            });
+            $(document).on("keypress",".input-data",function(e){
+                var key=e.which;
+                if(key==13){
+                    var value=$(this).val();
+                    var td=$(this).parent("td");
+                    $(this).remove();
+                    td.html(value);
+                    td.addClass("editable");
+                   var type=td.data("type");
+                   sendToServer(td.data("id"),value,type);
+                }
+            });
+
+            function sendToServer(id,value,type){
+                console.log(id);
+                console.log(value);
+                console.log(type);
+                $.ajax({
+                    url:"http://127.0.0.1:8000/getrdv",
+                    type:"POST",
+                    data:{id:id,type:type,value:value},
+                })
+                .done(function(response){
+                    console.log(response);
+                })
+                .fail(function(){
+                   console.log("Error Occured");
+                });
+
+            }
+        });
+    </script>
+{% endblock custom_js %}
+{%endblock %}
